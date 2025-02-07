@@ -1,4 +1,4 @@
-User Stories
+#User Stories
 1. As doctor, I want to know my patient symptoms and condition before the medical appointment, so I can physicaly check them and save time by avoiding asking the same general questions.
 Acceptance Criteria:
 -	The app should ask to the patient the general questions that the doctor would ask via chat or messages.
