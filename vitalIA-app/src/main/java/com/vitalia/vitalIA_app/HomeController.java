@@ -11,18 +11,6 @@ public class HomeController {
         return "index"; // This corresponds to "index.html"
     }
 
-    @GetMapping("/medical-history-access")
-    public String medicalHistoryAccess() {
-        System.out.println("Medical History Access page accessed");
-        return "medical-history-access"; // This corresponds to "medical-history-access.html"
-    }
-
-    @GetMapping("/medication-reminder")
-    public String medicationReminderAccess() {
-        System.out.println("Medical Reminder Access page accessed");
-        return "medication-reminder"; // This corresponds to "medical-history-access.html"
-    }
-
     @GetMapping("/appointment-rating-and-reviews")
     public String appointmentRatingAndReviews() {
         System.out.println("Appointment Rating and Reviews page accessed");
@@ -35,17 +23,7 @@ public class HomeController {
         return "schedule-medical-appointment";
     }
 
-    @GetMapping("/formula-and-medications-management")
-    public String formulaAndMedicationsManagement() {
-        System.out.println("Formula and Medications Management page accessed");
-        return "formula-and-medications-management";
-    }
 
-    @GetMapping("/menstrual-cycle-tracker")
-    public String menstrualCycleTracker() {
-        System.out.println("Menstrual cycle tracker page accessed");
-        return "menstrual-cycle-tracker";
-    }
 
 
     // Add more methods for other user stories as needed
