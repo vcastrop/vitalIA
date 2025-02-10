@@ -42,7 +42,7 @@ public class HomeController {
     }
 
     @GetMapping("/menstrual-cycle-tracker")
-    public String formulaAndMedicationsManagement() {
+    public String menstrualCycleTracker() {
         System.out.println("Menstrual cycle tracker page accessed");
         return "menstrual-cycle-tracker";
     }
