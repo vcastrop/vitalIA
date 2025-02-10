@@ -35,5 +35,12 @@ public class HomeController {
         return "schedule-medical-appointment";
     }
 
+    @GetMapping("/formula-and-medications-management")
+    public String formulaAndMedicationsManagement() {
+        System.out.println("Formula and Medications Management page accessed");
+        return "formula-and-medications-management";
+    }
+
+
     // Add more methods for other user stories as needed
 }
