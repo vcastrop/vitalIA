@@ -23,5 +23,17 @@ public class HomeController {
         return "medication-reminder"; // This corresponds to "medical-history-access.html"
     }
 
+    @GetMapping("/appointment-rating-and-reviews")
+    public String appointmentRatingAndReviews() {
+        System.out.println("Appointment Rating and Reviews page accessed");
+        return "appointment-rating-and-reviews";
+    }
+
+    @GetMapping("/schedule-medical-appointment")
+    public String scheduleMedicalAppointment() {
+        System.out.println("Schedule Medical Appointment page accessed");
+        return "schedule-medical-appointment";
+    }
+
     // Add more methods for other user stories as needed
 }
