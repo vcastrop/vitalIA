@@ -41,6 +41,12 @@ public class HomeController {
         return "formula-and-medications-management";
     }
 
+    @GetMapping("/menstrual-cycle-tracker")
+    public String formulaAndMedicationsManagement() {
+        System.out.println("Menstrual cycle tracker page accessed");
+        return "menstrual-cycle-tracker";
+    }
+
 
     // Add more methods for other user stories as needed
 }
