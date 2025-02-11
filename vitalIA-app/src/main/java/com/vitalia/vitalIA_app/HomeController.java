@@ -10,6 +10,11 @@ public class HomeController {
     public String index() {
         return "index"; // This corresponds to "index.html"
     }
+    @GetMapping("/Formula-and-Medications-Management")
+    public String menstrualCycleTracker() {
+        System.out.println("Formula and Medications Management");
+        return "Formula-and-Medications-Management";
+    }
+}
 
-    // Add more methods for other user stories as needed
 }
