@@ -11,7 +11,7 @@ public class HomeController {
         return "index"; // This corresponds to "index.html"
     }
     @GetMapping("/Formula-and-Medications-Management")
-    public String menstrualCycleTracker() {
+    public String FormulaandMedicationsManagement() {
         System.out.println("Formula and Medications Management");
         return "Formula-and-Medications-Management";
     }
