@@ -1,4 +1,5 @@
 #User Stories
+
 1.As a patient, I want to know where can I get the medications of the medical formula and have options so I can compare prices and 
  As a user who takes prescribed medication. I want to receive reminders and personalized recommendations about my treatment. So that I don’t forget my medications and follow my diet correctly.
 Acceptance Criteria:
