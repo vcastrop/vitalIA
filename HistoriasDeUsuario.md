@@ -38,7 +38,7 @@ Acceptance Criteria:
 -	The app should notify the user in real-time when an appointment becomes available.
 -	It should allow the user to accept or decline the new time slot.
 -	If accepted, it should update the appointment in the user's history.
-## 8. Test Results Access
+## 7. Test Results Access
 As a user, I want to have quick access to my medical test results. So that I can easily review them whenever I need.
 Acceptance Criteria:
 -	The app should allow users to view saved medical test results.
@@ -47,20 +47,20 @@ Acceptance Criteria:
 
 
 
-## 9. Medical Service Rate
+## 8. Medical Service Rate
 As a user of the medical service. I want the tool to allow me to rate the care received after each appointment. So that I can contribute to the continuous improvement of the service.
 Acceptance Criteria:
 -	It should display a brief satisfaction survey after each completed appointment.
 -	It should allow rating aspects such as the professionalism of the healthcare provider, punctuality, and ease of using the system.
 -	It should send the results anonymously to the administrative area for analysis.
   
-## 10. Documents Reminder for Medical Appointment
+## 9. Documents Reminder for Medical Appointment
 As a user scheduling a medical appointment. I want the tool to notify me if I need to bring any specific documents or preparation instructions. So that I can arrive fully prepared for my appointment.
 Acceptance Criteria:
 -	It should display a notification with the list of required documents or preparations after booking the appointment.
 -	It should send a reminder of the documents 24 hours before the appointment.
 -	It should allow the user to confirm if they have all the necessary documents through the chatbot.
- ## 11. Document Storing
+ ## 10. Document Storing
 As a patient I want to be able to upload documents with my medical history, test results or other documents to have a better track on my medical records.
 Acceptance Criteria:
 - The app should be able to read the documents and extract the information to classify it in sections
