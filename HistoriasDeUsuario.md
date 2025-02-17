@@ -64,7 +64,7 @@ Acceptance Criteria:
 -	The app must send the patient answers (symptoms) in a summary text to the doctor
 -	The user should be able to add additional information about their medical condition a part from the questions that the app has asked
 13. As a patient i want to be able to upload documents with my medical history, test results or other documents to have a better track on
-my medical records
+my medical records.
 Acceptance Criteria:
 - The app should be able to read the documents and extract the information to clasify it in sections
 - It showld allow the user to upload the information of the medical appointment and test results manually
