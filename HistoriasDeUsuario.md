@@ -60,7 +60,7 @@ Acceptance Criteria:
 -	It should display a notification with the list of required documents or preparations after booking the appointment.
 -	It should send a reminder of the documents 24 hours before the appointment.
 -	It should allow the user to confirm if they have all the necessary documents through the chatbot.
-13. Document Storing
+ ## 11. Document Storing
 As a patient I want to be able to upload documents with my medical history, test results or other documents to have a better track on my medical records.
 Acceptance Criteria:
 - The app should be able to read the documents and extract the information to classify it in sections
