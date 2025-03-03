@@ -1,12 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
-
-def home_redirect(request):
-    return redirect("result_list")  # Redirige la raíz a la vista de resultados
+from results.views import home  # Importa la vista home
 
 urlpatterns = [
-    path("", home_redirect),  # Redirige la raíz (/) a "results/"
     path("admin/", admin.site.urls),
-    path("results/", include("results.urls")),
+    path("", home, name="home"),  # Ruta para la página principal
+    path("results/", include("results.urls")),  # Ruta para los resultados
 ]
