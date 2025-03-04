@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Recordatorio</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        .highlight {
+            color: #00ffcc;
+        }
+        .btn-custom {
+            background-color: #00ffcc;
+            color: #1e3c72;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #00cc99;
+            color: white;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 80%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid white;
+        }
+        th {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <h1 class="hero-title">Crear <span class="highlight">Recordatorio de Medicación</span></h1>
+    <form method="post" action="{% url 'add_reminder' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn-custom">Guardar</button>
+    </form>
+
+    <h2 class="hero-title">Lista de <span class="highlight">Recordatorios</span></h2>
+    <table>
+        <tr>
+            <th>Medicamento</th>
+            <th>Días</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+        </tr>
+        {% for reminder in reminders %}
+        <tr>
+            <td>{{ reminder.medication_name }}</td>
+            <td>{{ reminder.days_of_week }}</td>
+            <td>{{ reminder.start_date }}</td>
+            <td>{{ reminder.end_date }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No hay recordatorios aún.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
