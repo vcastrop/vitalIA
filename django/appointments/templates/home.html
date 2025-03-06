@@ -1,24 +1,74 @@
 
 
-{% extends "base.html" %}
-{% block title %}Inicio - vitalIA{% endblock %}
+<!DOCTYPE html>
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Citas Médicas</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
 
-{% block content %}
     <h1>Buscar Citas Médicas</h1>
-    <form method="GET" action="{% url 'results' %}">
-        <label for="date">Fecha:</label>
-        <input type="date" id="date" name="date">
 
-        <label for="specialty">Especialidad:</label>
-        <select id="specialty" name="specialty">
+    <form id="form-busqueda">
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha" required>
+
+        <label for="especialidad">Especialidad:</label>
+        <select id="especialidad" name="especialidad" required>
             <option value="">Selecciona una</option>
-            <option value="medicina_general">Medicina General</option>
-            <option value="dermatologia">Dermatología</option>
-            <option value="odontologia">Odontología</option>
+            {% for especialidad in especialidades %}
+                <option value="{{ especialidad.nombre }}">{{ especialidad.nombre }}</option>
+            {% endfor %}
         </select>
 
         <button type="submit">Buscar</button>
     </form>
-{% endblock %}
+
+    <h2>Citas Disponibles</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-citas">
+            <tr><td colspan="2">Seleccione fecha y especialidad</td></tr>
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function () {
+            $("#form-busqueda").submit(function (event) {
+                event.preventDefault();
+
+                let fecha = $("#fecha").val();
+                let especialidad = $("#especialidad").val();
+
+                if (fecha && especialidad) {
+                    $.get("{% url 'buscar_citas' %}?fecha=" + fecha + "&especialidad=" + especialidad, function (data) {
+                        let tabla = $("#tabla-citas");
+                        tabla.empty();
+
+                        if (data.citas.length > 0) {
+                            data.citas.forEach(function (cita) {
+                                tabla.append(`<tr><td>${cita.fecha}</td><td>${cita.hora}</td></tr>`);
+                            });
+                        } else {
+                            tabla.append("<tr><td colspan='2'>No hay citas disponibles</td></tr>");
+                        }
+                    }).fail(function () {
+                        alert("Error al buscar las citas. Verifica la conexión con el servidor.");
+                    });
+                }
+            });
+        });
+    </script>
+
+
+</body>
+</html>

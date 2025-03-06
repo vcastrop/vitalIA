@@ -62,7 +62,7 @@ import os
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'appointments/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'appointments', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

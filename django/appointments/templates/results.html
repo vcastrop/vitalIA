@@ -1,34 +1,15 @@
 {% extends "base.html" %}
-{% block title %}Resultados - Zero Waste{% endblock %}
-
-
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
 {% block content %}
-    <h1>Resultados de Búsqueda</h1>
-    {% if appointments %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                    <th>Especialidad</th>
-                    <th>Médico</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for appointment in appointments %}
-                    <tr>
-                        <td>{{ appointment.date }}</td>
-                        <td>{{ appointment.time }}</td>
-                        <td>{{ appointment.specialty }}</td>
-                        <td>{{ appointment.doctor }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No se encontraron citas disponibles.</p>
-    {% endif %}
+    <h2>Citas disponibles</h2>
+    <ul>
+        {% for cita in citas %}
+            <li>
+                {{ cita.fecha }} - {{ cita.hora }} ({{ cita.especialidad }})
+                <a href="{% url 'reservar_cita' cita.id %}">Reservar</a>
+            </li>
+        {% empty %}
+            <li>No hay citas disponibles.</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

@@ -1,13 +1,16 @@
 from django.db import models
 
-
-# Create your models here.
-
-class Cita(models.Model):
-    nombre_paciente = models.CharField(max_length=100)
-    especialidad = models.CharField(max_length=100)
-    fecha = models.DateField()
-    hora = models.TimeField()
+class Especialidad(models.Model):
+    nombre = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.nombre_paciente} - {self.especialidad} ({self.fecha} {self.hora})"
+        return self.nombre
+
+class Cita(models.Model):
+    fecha = models.DateField()
+    hora = models.TimeField()
+    especialidad = models.ForeignKey(Especialidad, on_delete=models.CASCADE)
+    disponible = models.BooleanField(default=True)  # Para marcar si está ocupada
+
+    def __str__(self):
+        return f"{self.fecha} - {self.hora} ({self.especialidad.nombre})"
