@@ -2,16 +2,22 @@
 {% load static %}
 <html lang="es">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Citas Médicas</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+
 </head>
 <body>
 
     <h1>Buscar Citas Médicas</h1>
 
     <form id="form-busqueda">
+        {% csrf_token %}  <!-- Agregar el token CSRF -->
+
         <label for="fecha">Fecha:</label>
         <input type="date" id="fecha" name="fecha" required>
 
@@ -37,36 +43,42 @@
             <tr>
                 <th>Fecha</th>
                 <th>Hora</th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody id="tabla-citas">
-            <tr><td colspan="2">Seleccione fecha y especialidad</td></tr>
+            <tr><td colspan="3">Seleccione fecha y especialidad</td></tr>
         </tbody>
     </table>
 
     <script>
         $(document).ready(function () {
-            // Actualizar lista de doctores según especialidad
+            let csrfToken = "{{ csrf_token }}"; // Obtener el token CSRF desde Django
+
+            // Cargar doctores según especialidad seleccionada
             $("#especialidad").change(function () {
                 let especialidadId = $(this).val();
                 let doctorSelect = $("#doctor");
 
                 doctorSelect.html("<option value=''>Cargando...</option>");
 
-                $.get("{% url 'obtener_doctores' %}?especialidad_id=" + especialidadId, function (data) {
-                    doctorSelect.html("<option value=''>Seleccione un doctor</option>");
-                    data.doctores.forEach(function (doctor) {
-                        doctorSelect.append(`<option value="${doctor.id}">${doctor.nombre}</option>`);
+                if (especialidadId) {
+                    $.get("{% url 'obtener_doctores' %}?especialidad_id=" + especialidadId, function (data) {
+                        doctorSelect.html("<option value=''>Seleccione un doctor</option>");
+                        data.doctores.forEach(function (doctor) {
+                            doctorSelect.append(`<option value="${doctor.id}">${doctor.nombre}</option>`);
+                        });
+                    }).fail(function () {
+                        doctorSelect.html("<option value=''>Error al cargar doctores</option>");
                     });
-                }).fail(function () {
-                    doctorSelect.html("<option value=''>Error al cargar doctores</option>");
-                });
+                } else {
+                    doctorSelect.html("<option value=''>Seleccione una especialidad primero</option>");
+                }
             });
 
             // Buscar citas médicas disponibles
             $("#form-busqueda").submit(function (event) {
                 event.preventDefault();
-
                 let fecha = $("#fecha").val();
                 let especialidad = $("#especialidad").val();
                 let doctor = $("#doctor").val();
@@ -78,13 +90,40 @@
 
                         if (data.citas.length > 0) {
                             data.citas.forEach(function (cita) {
-                                tabla.append(`<tr><td>${cita.fecha}</td><td>${cita.hora}</td></tr>`);
+                                tabla.append(`
+                                    <tr>
+                                        <td>${cita.fecha}</td>
+                                        <td>${cita.hora}</td>
+                                        <td>
+                                            <button class="agendar-btn" data-id="${cita.id}">Agendar</button>
+                                        </td>
+                                    </tr>
+                                `);
                             });
+
+                            // Evento de agendar cita
+                            $(".agendar-btn").on("click", function () {
+                                let citaId = $(this).data("id");
+
+                                $.ajax({
+                                    url: "{% url 'reservar_cita' %}",
+                                    type: "POST",
+                                    contentType: "application/json",
+                                    data: JSON.stringify({ cita_id: citaId }),
+                                    headers: { "X-CSRFToken": csrfToken }, // Agregar token CSRF
+                                    success: function (response) {
+                                        alert(response.mensaje);
+                                        location.reload();
+                                    },
+                                    error: function (xhr) {
+                                        alert("Error al agendar la cita: " + xhr.responseText);
+                                    }
+                                });
+                            });
+
                         } else {
-                            tabla.append("<tr><td colspan='2'>No hay citas disponibles</td></tr>");
+                            tabla.append("<tr><td colspan='3'>No hay citas disponibles</td></tr>");
                         }
-                    }).fail(function () {
-                        alert("Error al buscar las citas. Verifica la conexión con el servidor.");
                     });
                 } else {
                     alert("Por favor, seleccione fecha, especialidad y doctor.");

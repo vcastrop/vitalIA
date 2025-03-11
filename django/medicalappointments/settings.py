@@ -43,7 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'appointments',
     'django_bootstrap5',
+    'tailwind',
+    'citas_medicas',
 ]
+TAILWIND_APP_NAME = 'citas_medicas'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,7 +80,7 @@ TEMPLATES = [
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'appointments/static'),
+    BASE_DIR / "citas_medicas/static_src/src",
 ]
 
 
@@ -135,3 +138,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+

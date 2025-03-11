@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+    font-family: "font_3 wixui-rich-text__text", sans-serif;
+    background-color: whitesmoke;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 60px;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+h1::first-letter{
+    font-size: 120%;
+    color: blue;
+}
+
+h1{
+    white-space: pre-line;
+}
+
+
+
+
+form {
+    background: white;
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: cornflowerblue;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: darkblue;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #320404;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: lightskyblue;
+    color: darkblue;
+}
+
+.action-button {
+    background-color: #0275d8;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.action-button:hover {
+    background-color: #025aa5;
+}
