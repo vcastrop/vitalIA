@@ -1,55 +1,79 @@
+
 <!DOCTYPE html>
 {% load static %}
 <html lang="es">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Citas Médicas</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
-
-
 </head>
 <body>
 
-    <h1>Buscar Citas Médicas</h1>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="{% static 'src/imagenes/logo.png' %}" alt="VitalIA">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About VitalIA</a></li>
+                <li><a href="#">User Profile</a></li>
+                <li><a href="#medical_appointments">Appointments Management</a></li>
+                <li><a href="#">Medications Management</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">More</a></li>
+            </ul>
+            <div class="icons">
+                <a href="#"><i class="fa-solid fa-bell"></i></a>
+                <a href="#"><i class="fa-solid fa-user"></i></a>
+            </div>
+        </nav>
+    </header>
 
-    <form id="form-busqueda">
-        {% csrf_token %}  <!-- Agregar el token CSRF -->
+    <main>
+        <section id="medical-appointments">
+            <h1>Buscar Citas</h1>
+            <h2>Médicas</h2>
 
-        <label for="fecha">Fecha:</label>
-        <input type="date" id="fecha" name="fecha" required>
+            <form id="form-busqueda">
+                {% csrf_token %}  <!-- Token CSRF obligatorio en Django -->
 
-        <label for="especialidad">Especialidad:</label>
-        <select id="especialidad" name="especialidad" required>
-            <option value="">Selecciona una</option>
-            {% for especialidad in especialidades %}
-                <option value="{{ especialidad.id }}">{{ especialidad.nombre }}</option>
-            {% endfor %}
-        </select>
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" required>
 
-        <label for="doctor">Doctor:</label>
-        <select id="doctor" name="doctor" required>
-            <option value="">Selecciona una especialidad primero</option>
-        </select>
+                <label for="especialidad">Especialidad:</label>
+                <select id="especialidad" name="especialidad" required>
+                    <option value="">Selecciona una</option>
+                    {% for especialidad in especialidades %}
+                        <option value="{{ especialidad.id }}">{{ especialidad.nombre }}</option>
+                    {% endfor %}
+                </select>
 
-        <button type="submit">Buscar</button>
-    </form>
+                <label for="doctor">Doctor:</label>
+                <select id="doctor" name="doctor" required>
+                    <option value="">Selecciona una especialidad primero</option>
+                </select>
 
-    <h2>Citas Disponibles</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody id="tabla-citas">
-            <tr><td colspan="3">Seleccione fecha y especialidad</td></tr>
-        </tbody>
-    </table>
+                <button type="submit">Buscar</button>
+            </form>
+
+            <h2>Citas Disponibles</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-citas">
+                    <tr><td colspan="3">Seleccione fecha y especialidad</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
 
     <script>
         $(document).ready(function () {

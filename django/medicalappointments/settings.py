@@ -81,6 +81,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "citas_medicas/static_src/src",
+    os.path.join(BASE_DIR, "citas_medicas/static_src/src/imagenes"),
+    'citas_medicas/static_src',
 ]
 
 

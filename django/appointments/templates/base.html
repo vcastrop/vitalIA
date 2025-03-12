@@ -2,7 +2,6 @@
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
     {% load static %}
@@ -10,9 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}vitalIA{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'citas_medicas/static_src/styles.css' %}">
-
     <link href="{% static 'citas_medicas/static_src/src/styles.css' %}" rel="stylesheet">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -24,6 +22,27 @@
                 <li><a href="#">Contacto</a></li>
             </ul>
         </nav>
+
+        <!-- Barra de búsqueda -->
+        <form id="form-busqueda" action="{% url 'results' %}" method="GET">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="especialidad">Especialidad:</label>
+            <select id="especialidad" name="especialidad" required>
+                <option value="">Selecciona una</option>
+                {% for especialidad in especialidades %}
+                    <option value="{{ especialidad.id }}">{{ especialidad.nombre }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="doctor">Doctor:</label>
+            <select id="doctor" name="doctor" required>
+                <option value="">Selecciona una especialidad primero</option>
+            </select>
+
+            <button type="submit">Buscar</button>
+        </form>
     </header>
 
     <main>
@@ -33,5 +52,30 @@
     <footer>
         <p>&copy; 2025 VitalIA</p>
     </footer>
+
+    <script>
+        $(document).ready(function () {
+            $("#especialidad").change(function () {
+                let especialidadId = $(this).val();
+                let doctorSelect = $("#doctor");
+
+                doctorSelect.html("<option value=''>Cargando...</option>");
+
+                if (especialidadId) {
+                    $.get("{% url 'obtener_doctores' %}?especialidad_id=" + especialidadId, function (data) {
+                        doctorSelect.html("<option value=''>Seleccione un doctor</option>");
+                        data.doctores.forEach(function (doctor) {
+                            doctorSelect.append(`<option value="${doctor.id}">${doctor.nombre}</option>`);
+                        });
+                    }).fail(function () {
+                        doctorSelect.html("<option value=''>Error al cargar doctores</option>");
+                    });
+                } else {
+                    doctorSelect.html("<option value=''>Seleccione una especialidad primero</option>");
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
