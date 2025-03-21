@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% extends 'navbar.html' %}
+{% load static %}
+{% block title %}Buscar Citas Médicas{% endblock %}
+
+{% block content %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Documentos</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 120px;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .highlight {
+            color: #00ffcc;
+        }
+        .btn-custom {
+            background-color: #00ffcc;
+            color: #1e3c72;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+            margin-left: 15px; /* Espacio entre el texto y el botón */
+        }
+        .btn-custom:hover {
+            background-color: #00cc99;
+            color: white;
+        }
+        .document-list {
+            text-align: left;
+            margin-top: 20px;
+            width: 80%;
+            margin-left: 10%;
+        }
+        .document-item {
+            background-color: rgba(0, 255, 204, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;  /* Usamos flexbox para alinear el contenido */
+            align-items: center;
+            justify-content: space-between; /* Espacio entre texto y el botón */
+        }
+        .document-item span {
+            margin-left: 15px; /* Espacio entre el texto y "Confirmado" */
+        }
+        .btn-back {
+            background-color: #00ffcc; /* Color turquesa */
+            color: #1e3c72;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        .btn-back:hover {
+            background-color: #00cc99;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="hero-title">Documentos por Confirmar</h1>
+    <div class="document-list">
+        {% for documento in documents %}
+            <div class="document-item">
+                <div>
+                    <strong>Tipo:</strong> {{ documento.tipo }}<br>
+                    <strong>Paciente:</strong> {{ documento.paciente.nombre }}<br>
+                    <strong>Estado:</strong> {{ documento.estado }}
+                </div>
+                {% if documento.estado == "Pendiente" %}
+                    <a href="{% url 'confirmar_documento' documento.id %}" class="btn-custom">Confirmar</a>
+                {% else %}
+                    <span>Confirmado</span>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No hay documentos por confirmar.</p>
+        {% endfor %}
+    </div>
+    <a href="{% url 'home' %}" class="btn-back">Volver a Inicio</a>
+</body>
+</html>
+{% endblock %}

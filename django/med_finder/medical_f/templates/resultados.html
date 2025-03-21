@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% extends 'navbar.html' %}
+{% load static %}
+{% block title %}Buscar Citas Médicas{% endblock %}
+
+{% block content %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados de búsqueda</title>
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+</head>
+<body>
+    <h1>Resultados de la búsqueda</h1>
+
+    <p><strong>Datos crudos:</strong></p>
+    <pre>{{ resultados }}</pre> <!-- Muestra la estructura del QuerySet -->
+
+    <ul>
+        {% for item in resultados %}
+            <li>
+                <strong>Medicamento:</strong> {{ item.medicamento }} |
+                <strong>Farmacia:</strong> {{ item.farmacia }} |
+                <strong>Precio:</strong> {{ item.precio }} |
+                <strong>Stock disponible:</strong> {{ item.stock }}
+            </li>
+        {% empty %}
+            <p>No se encontraron medicamentos.</p>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'home' %}">Volver al inicio</a>
+</body>
+</html>
+{% endblock %}

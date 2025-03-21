@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% extends 'navbar.html' %}
+{% load static %}
+{% block title %}Buscar Citas Médicas{% endblock %}
+
+{% block content %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pacientes</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding-top: 120px;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .highlight {
+            color: #00ffcc;
+        }
+        .btn-custom {
+            background-color: #00ffcc;
+            color: #1e3c72;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        .btn-custom:hover {
+            background-color: #00cc99;
+            color: white;
+        }
+        .patient-list {
+            width: 80%;
+            margin-left: 10%;
+            text-align: left;
+        }
+        .patient-item {
+            background-color: rgba(0, 255, 204, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .patient-item strong {
+            color: #00ffcc;
+        }
+        .patient-item span {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="hero-title">Lista de Pacientes</h1>
+    <div class="patient-list">
+        {% for paciente in pacientes %}
+            <div class="patient-item">
+                <strong>Nombre:</strong> {{ paciente.nombre }}<br>
+                <strong>Edad:</strong> {{ paciente.edad }} años<br>
+                <strong>Dirección:</strong> {{ paciente.direccion }}<br>
+                <strong>Teléfono:</strong> {{ paciente.telefono }}<br>
+                <strong>Email:</strong> {{ paciente.email }}<br>
+            </div>
+        {% empty %}
+            <p>No hay pacientes registrados.</p>
+        {% endfor %}
+    </div>
+    <a href="{% url 'home' %}" class="btn-custom">Volver a Inicio</a>
+</body>
+</html>
+{% endblock %}

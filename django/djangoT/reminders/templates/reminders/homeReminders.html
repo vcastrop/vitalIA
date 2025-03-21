@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends 'navbar.html' %}
+{% load static %}
+{% block title %}Buscar Citas Médicas{% endblock %}
+
+{% block content %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .hero-title {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+        .highlight {
+            color: #00ffcc;
+        }
+        .btn-custom {
+            background-color: #00ffcc;
+            color: #1e3c72;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #00cc99;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="hero-title">Bienvenido a <span class="highlight">MedReminder</span></h1>
+    <a href="{% url 'add_medication_reminder' %}" class="btn-custom">Crear Recordatorio</a>
+</body>
+</html>
+{% endblock %}
