@@ -1,0 +1,51 @@
+{% extends 'reminder_app/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Mis Recordatorios de Documentos</h2>
+    
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="message-box">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <a href="{% url 'reminder_app:create_reminder' %}" class="action-button" style="text-decoration: none; display: inline-block; margin-bottom: 20px;">Crear Nuevo Recordatorio</a>
+
+    {% if reminders %}
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+        {% for reminder in reminders %}
+        <div class="reminder-card">
+            <div class="reminder-content">
+                <div>
+                    <h3 class="reminder-info">{{ reminder.title }}</h3>
+                    <p>Fecha: {{ reminder.appointment_date|date:"d/m/Y H:i" }}</p>
+                    <p>Documentos necesarios:</p>
+                    <p>{{ reminder.documents|linebreaks }}</p>
+                    {% if reminder.description %}
+                    <p class="reminder-description"><strong>Descripción:</strong> {{ reminder.description|linebreaks }}</p>
+                    {% endif %}
+                </div>
+                <form method="post" action="{% url 'reminder_app:delete_reminder' reminder.pk %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="action-button delete-button" onclick="return confirm('¿Estás seguro de que deseas eliminar este recordatorio?')">
+                        Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="reminder-card">No tienes recordatorios activos.</p>
+    {% endif %}
+
+    <div style="margin-top: 20px;">
+        <a href="{% url 'reminder_app:reminder_dashboard' %}" class="action-button" style="text-decoration: none; display: inline-block;">Volver al Dashboard</a>
+    </div>
+</div>
+{% endblock %} 

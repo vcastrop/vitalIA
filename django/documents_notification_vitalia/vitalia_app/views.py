@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect
 from .models import Paciente, Documento
 
-def home(request):
+def inicio(request):
     return render(request, 'vitalia_app/home.html')  # Vista asociada a la ruta ''
 
 def ver_pacientes(request):
@@ -17,4 +17,4 @@ def confirmar_documento(request, documento_id):
     documento = Documento.objects.get(id=documento_id)
     documento.estado = "Confirmado"  # Cambiamos el estado a "Confirmado"
     documento.save()
-    return redirect('confirmar_documentos')  # Redirigimos a la lista de documentos
+    return redirect('vitalia_app:confirmar_documentos')  # Redirigimos a la lista de documentos

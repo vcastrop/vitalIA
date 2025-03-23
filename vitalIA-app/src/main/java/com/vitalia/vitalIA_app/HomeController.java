@@ -1,4 +1,4 @@
-package com.vitalia_app;
+package com.vitalia.vitalIA_app;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

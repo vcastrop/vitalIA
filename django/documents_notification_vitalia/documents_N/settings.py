@@ -25,8 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # local apps
-    'documents_notification_vitalia.vitalia_app',
-    'documents_notification_vitalia.reminder_app',
+    'vitalia_app',
+    'reminder_app',
 ]
 
 MIDDLEWARE = [
@@ -46,7 +46,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             BASE_DIR / 'documents_notification_vitalia' / 'vitalia_app' / 'templates',
-            # Si tienes una carpeta 'templates' general para todo el proyecto, añádela aquí también
+            BASE_DIR / 'documents_notification_vitalia' / 'reminder_app' / 'templates',
+           
         ],
         'APP_DIRS': True,
         'OPTIONS': {

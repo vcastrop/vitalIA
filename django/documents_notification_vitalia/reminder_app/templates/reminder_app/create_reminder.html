@@ -1,0 +1,19 @@
+{% extends 'reminder_app/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Crear Nuevo Recordatorio</h2>
+    
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="action-button">Guardar Recordatorio</button>
+            <a href="{% url 'reminder_app:reminder_list' %}" class="action-button" style="text-decoration: none; display: inline-block; margin-top: 10px;">Cancelar</a>
+        </form>
+        <a href="{% url 'reminder_app:reminder_dashboard' %}" class="action-button" style="text-decoration: none; display: inline-block; margin-top: 10px;">Volver al Dashboard</a>
+    </div>
+</div>
+{% endblock %} 

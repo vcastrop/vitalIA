@@ -1,4 +1,4 @@
-package com.example.vitaliaapp; // Use your actual package name
+package com.vitalia.vitalIA_app; // Use your actual package name
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

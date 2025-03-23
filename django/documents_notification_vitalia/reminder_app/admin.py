@@ -1,12 +1,13 @@
 from django.contrib import admin
-from .models import Reminder, DocumentReminder
+from .models import Reminder
 
+@admin.register(Reminder)
 class ReminderAdmin(admin.ModelAdmin):
-    list_display = ('appointment_id', 'user_email', 'reminder_time', 'confirmed')  
-    list_filter = ('confirmed', 'reminder_time')
-
-class DocumentReminderAdmin(admin.ModelAdmin):
-    list_display = ('reminder', 'required_documents')
-
-admin.site.register(Reminder, ReminderAdmin)
-admin.site.register(DocumentReminder, DocumentReminderAdmin)
+    list_display = ('user', 'appointment_date', 'created_at', 'is_active')
+    list_filter = ('is_active', 'appointment_date', 'created_at')
+    search_fields = ('user__username', 'documents')
+    readonly_fields = ('created_at',)
+    ordering = ('-appointment_date',)
+    
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('user')

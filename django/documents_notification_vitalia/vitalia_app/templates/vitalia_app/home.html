@@ -1,54 +1,30 @@
 <!DOCTYPE html>
 {% extends 'navbar.html' %}
 {% load static %}
-{% block title %}Buscar Citas Médicas{% endblock %}
+{% block title %}Inicio - VitalIA{% endblock %}
 
 {% block content %}
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Inicio - VitalIA</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="{% static 'navbar.css' %}">
-    <style>
-        body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            text-align: center;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding-top: 120px;
-        }
-        .hero-title {
-            font-size: 3rem;
-            font-weight: bold;
-        }
-        .highlight {
-            color: #00ffcc;
-        }
-        .btn-custom {
-            background-color: #00ffcc;
-            color: #1e3c72;
-            font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-        .btn-custom:hover {
-            background-color: #00cc99;
-            color: white;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'vitalia_app/css/styles.css' %}">
 </head>
 <body>
-    <h1 class="hero-title">Bienvenido a <span class="highlight">VitalIA</span></h1>
-    <a href="{% url 'view_patients' %}" class="btn-custom">Ver Pacientes</a>
-    <a href="{% url 'confirmar_documentos' %}" class="btn-custom">Confirmar Documentos</a>
+    <div class="content-container">
+        <h1>¡Tu Salud, Nuestra Prioridad!</h1>
+        <p class="subtitle">Gestiona tus documentos médicos de forma rápida y segura</p>
+        
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <a href="{% url 'vitalia_app:ver_pacientes' %}" class="btn-custom">Mi Perfil</a>
+            <a href="{% url 'vitalia_app:confirmar_documentos' %}" class="btn-custom">Confirmar Documentos</a>
+        </div>
+
+        <a href="{% url 'menu' %}" class="menu-button">Volver al Menú Principal</a>
+    </div>
 </body>
 </html>
 {% endblock %}

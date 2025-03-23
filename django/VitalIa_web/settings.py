@@ -51,13 +51,8 @@ INSTALLED_APPS = [
     "djangoT.reminders",
     "med_finder",
     'med_finder.medical_f',
-    'documents_notification_vitalia',
-    'documents_notification_vitalia.reminder_app',
     'documents_notification_vitalia.vitalia_app',
-
-
-
-
+    'documents_notification_vitalia.reminder_app',
 ]
 TAILWIND_APP_NAME = 'VItalIA_app'
 
@@ -84,7 +79,9 @@ TEMPLATES = [
             os.path.join(BASE_DIR, 'djangoT', 'medical_app1', 'reminders', 'templates'),
             os.path.join(BASE_DIR, 'med_finder', 'medical_f', 'templates'),
             os.path.join(BASE_DIR, 'documents_notification_vitalia', 'vitalia_app', 'templates'),
+            os.path.join(BASE_DIR, 'documents_notification_vitalia', 'reminder_app', 'templates'),
             os.path.join(BASE_DIR, 'VitalIA_app', 'templates'),
+            
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -97,7 +94,8 @@ TEMPLATES = [
         },
     },
 ]
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
     BASE_DIR / "VItalIA_app/static_src/src",
