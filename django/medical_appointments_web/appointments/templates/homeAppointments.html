@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% extends 'navbar.html' %}
+{% load static %}
+{% block title %}Buscar Citas Médicas{% endblock %}
+
+{% block content %}
+
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Citas Médicas</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+</head>
+<body>
+
+    <main>
+        <!-- Sección de Búsqueda -->
+        <section id="medical-appointments">
+            <h1>Buscar Citas Médicas</h1>
+
+            <form id="form-busqueda">
+                {% csrf_token %}
+
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" required>
+
+                <label for="especialidad">Especialidad:</label>
+                <select id="especialidad" name="especialidad" required>
+                    <option value="">Selecciona una</option>
+                    {% for especialidad in especialidades %}
+                        <option value="{{ especialidad.id }}">{{ especialidad.nombre }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="doctor">Doctor:</label>
+                <select id="doctor" name="doctor" required>
+                    <option value="">Selecciona una especialidad primero</option>
+                </select>
+
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
+
+        <!-- Sección de Resultados -->
+        <section id="citas-disponibles">
+            <h2>Citas Disponibles</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-citas">
+                    {% if citas %}
+                        {% for cita in citas %}
+                            <tr>
+                                <td>{{ cita.fecha }}</td>
+                                <td>{{ cita.hora }}</td>
+                                <td>
+                                    <button class="agendar-btn" data-id="{{ cita.id }}">Agendar</button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr><td colspan="3">Seleccione fecha y especialidad</td></tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Pasar variables de Django al JavaScript -->
+    <script>
+        const csrfToken = "{{ csrf_token }}";
+        const obtenerDoctoresUrl = "{% url 'obtener_doctores' %}";
+        const buscarCitasUrl = "{% url 'buscar_citas' %}";
+        const reservarCitaUrl = "{% url 'reservar_cita' %}";
+    </script>
+
+    <!-- Referencia al archivo JavaScript -->
+    <script src="{% static 'js/citas.js' %}"></script>
+
+</body>
+</html>
+{% endblock %}
