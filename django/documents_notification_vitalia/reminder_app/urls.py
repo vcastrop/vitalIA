@@ -8,4 +8,5 @@ urlpatterns = [
     path('list/', views.reminder_list, name='reminder_list'),
     path('create/', views.create_reminder, name='create_reminder'),
     path('delete/<int:pk>/', views.delete_reminder, name='delete_reminder'),
+    path('suggest-documents/', views.suggest_documents, name='suggest_documents'),
 ]

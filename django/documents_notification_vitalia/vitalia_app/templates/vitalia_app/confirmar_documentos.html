@@ -14,9 +14,10 @@
     <link rel="stylesheet" href="{% static 'vitalia_app/css/styles.css' %}">
 </head>
 <body>
-    <h1>Documentos por Confirmar</h1>
-    <div class="document-list">
-        {% for documento in documents %}
+    <div class="container mt-4">
+        <h2>Documentos por Confirmar</h2>
+        <div class="document-list">
+            {% for documento in documents %}
             <div class="document-item">
                 <div>
                     <strong>Tipo:</strong> {{ documento.tipo }}<br>
@@ -29,11 +30,12 @@
                     <span>Confirmado</span>
                 {% endif %}
             </div>
-        {% empty %}
-            <p>No hay documentos por confirmar.</p>
-        {% endfor %}
+            {% empty %}
+                <p>No hay documentos por confirmar.</p>
+            {% endfor %}
+        </div>
+        <a href="{% url 'vitalia_app:inicio' %}" class="btn-back">Volver a Inicio</a>
     </div>
-    <a href="{% url 'vitalia_app:inicio' %}" class="btn-back">Volver a Inicio</a>
 </body>
 </html>
 {% endblock %}

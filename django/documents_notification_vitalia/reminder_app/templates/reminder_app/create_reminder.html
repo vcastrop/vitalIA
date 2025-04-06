@@ -1,19 +1,84 @@
-{% extends 'reminder_app/base.html' %}
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block title %}Crear Recordatorio - VitalIA{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>Crear Nuevo Recordatorio</h2>
-    
-    <div class="card">
-        <form method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                {{ form.as_p }}
-            </div>
-            <button type="submit" class="action-button">Guardar Recordatorio</button>
-            <a href="{% url 'reminder_app:reminder_list' %}" class="action-button" style="text-decoration: none; display: inline-block; margin-top: 10px;">Cancelar</a>
-        </form>
-        <a href="{% url 'reminder_app:reminder_dashboard' %}" class="action-button" style="text-decoration: none; display: inline-block; margin-top: 10px;">Volver al Dashboard</a>
+<div class="content">
+    <div class="container">
+        <div class="form-container">
+            <h2>Crear Nuevo Recordatorio</h2>
+            <form method="post" class="reminder-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.title.id_for_label }}">Título:</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                    <div class="alert alert-danger">{{ form.title.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.appointment_type.id_for_label }}">Tipo de Cita:</label>
+                    {{ form.appointment_type }}
+                    {% if form.appointment_type.errors %}
+                    <div class="alert alert-danger">{{ form.appointment_type.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.appointment_date.id_for_label }}">Fecha de Cita:</label>
+                    {{ form.appointment_date }}
+                    {% if form.appointment_date.errors %}
+                    <div class="alert alert-danger">{{ form.appointment_date.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.documents.id_for_label }}">Documentos:</label>
+                    {{ form.documents }}
+                    {% if form.documents.errors %}
+                    <div class="alert alert-danger">{{ form.documents.errors }}</div>
+                    {% endif %}
+                    <small class="form-text">La IA sugerirá documentos basados en el tipo de cita seleccionado.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Descripción:</label>
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                    <div class="alert alert-danger">{{ form.description.errors }}</div>
+                    {% endif %}
+                    <small class="form-text">La IA generará una descripción amigable basada en los documentos especificados.</small>
+                </div>
+
+                <div class="button-container">
+                    <button type="submit" class="action-button primary-button">Crear Recordatorio</button>
+                    <a href="{% url 'reminder_app:reminder_list' %}" class="action-button secondary-button">Cancelar</a>
+                    <a href="{% url 'reminder_app:reminder_dashboard' %}" class="action-button secondary-button">Volver al Dashboard</a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const appointmentTypeSelect = document.querySelector('select[name="appointment_type"]');
+    const documentsTextarea = document.querySelector('textarea[name="documents"]');
+
+    appointmentTypeSelect.addEventListener('change', function() {
+        const appointmentType = this.value;
+        fetch(`/documents-reminder/suggest-documents/?appointment_type=${appointmentType}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.documents) {
+                    documentsTextarea.value = data.documents.join('\n');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+});
+</script>
 {% endblock %} 

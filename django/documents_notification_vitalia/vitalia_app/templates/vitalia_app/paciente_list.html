@@ -18,11 +18,28 @@
     <div class="patient-list">
         {% for paciente in pacientes %}
             <div class="patient-item">
-                <strong>Nombre:</strong> {{ paciente.nombre }}<br>
-                <strong>Edad:</strong> {{ paciente.edad }} años<br>
-                <strong>Dirección:</strong> {{ paciente.direccion }}<br>
-                <strong>Teléfono:</strong> {{ paciente.telefono }}<br>
-                <strong>Email:</strong> {{ paciente.email }}<br>
+                <div class="patient-info">
+                    <div class="info-row">
+                        <strong>Nombre:</strong>
+                        <span>{{ paciente.nombre }}</span>
+                    </div>
+                    <div class="info-row">
+                        <strong>Edad:</strong>
+                        <span>{{ paciente.edad }} años</span>
+                    </div>
+                    <div class="info-row">
+                        <strong>Dirección:</strong>
+                        <span>{{ paciente.direccion }}</span>
+                    </div>
+                    <div class="info-row">
+                        <strong>Teléfono:</strong>
+                        <span>{{ paciente.telefono }}</span>
+                    </div>
+                    <div class="info-row">
+                        <strong>Email:</strong>
+                        <span>{{ paciente.email }}</span>
+                    </div>
+                </div>
             </div>
         {% empty %}
             <p>No hay datos de perfil disponibles.</p>

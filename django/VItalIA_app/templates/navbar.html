@@ -5,32 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}VitalIA{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'src/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'reminder_app/css/styles.css' %}">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
-
     <!-- Navbar -->
-
-        <nav class="navbar">
-            <div class="logo">
-                <img src="{% static 'src/imagenes/logo.png' %}" alt="VitalIA">
-            </div>
-            <ul class="nav-links">
-                <li><a href="/menu/">Home</a></li>
-                <li><a href="#">About VitalIA</a></li>
-                <li><a href="/medication-finder/">Medication Finder</a></li>
-                <li><a href="/appointments/">Appointments Management</a></li>
-                <li><a href="/medication-management/">Medications Management</a></li>
-                <li><a href="/testresults/">Test Results</a></li>
-                <li><a href="/document-notification/">Document Notification</a></li> 
-                <li><a href="/documents-reminder/">Documents Reminder</a></li>
-            </ul>
-            <div class="icons">
-                <a href="#"><i class="fa-solid fa-bell"></i></a>
-                <a href="#"><i class="fa-solid fa-user"></i></a>
-            </div>
-        </nav>
-
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'src/imagenes/logo.png' %}" alt="VitalIA">
+        </div>
+        <ul class="nav-links">
+            <li><a href="/menu/">Home</a></li>
+            <li><a href="#">About VitalIA</a></li>
+            <li><a href="/medication-finder/">Medication Finder</a></li>
+            <li><a href="/appointments/">Appointments Management</a></li>
+            <li><a href="/medication-management/">Medications Management</a></li>
+            <li><a href="/testresults/">Test Results</a></li>
+            <li><a href="/document-notification/">Document Notification</a></li> 
+            <li><a href="/documents-reminder/">Documents Reminder</a></li>
+        </ul>
+        <div class="icons">
+            <a href="#"><i class="fa-solid fa-bell"></i></a>
+            <a href="#"><i class="fa-solid fa-user"></i></a>
+        </div>
+    </nav>
 
     <!-- Contenido dinámico -->
     <div class="content">
