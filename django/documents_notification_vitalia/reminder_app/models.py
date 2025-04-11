@@ -1,25 +1,29 @@
-# reminder_app/models.py
 from django.db import models
+from django.contrib.auth.models import User
 
 class Reminder(models.Model):
-    appointment_id = models.IntegerField()
-    user_email = models.EmailField()
-    reminder_time = models.DateTimeField()
-    confirmed = models.BooleanField(default=False)
+    APPOINTMENT_TYPES = [
+        ('consulta_general', 'Consulta General'),
+        ('consulta_especialista', 'Consulta con Especialista'),
+        ('analisis_clinico', 'Análisis Clínico'),
+        ('vacunacion', 'Vacunación'),
+        ('otros', 'Otros'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=200, help_text="Título del recordatorio", default="Recordatorio de Documentos")
+    appointment_type = models.CharField(max_length=50, choices=APPOINTMENT_TYPES, default='otros')
+    appointment_date = models.DateTimeField()
+    documents = models.TextField(help_text="Lista de documentos necesarios")
+    description = models.TextField(blank=True, help_text="Descripción adicional del recordatorio")
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    notification_sent = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"Reminder for {self.user_email} at {self.reminder_time}"
+        return f"{self.title} - {self.appointment_date.strftime('%d/%m/%Y %H:%M')}"
 
-class DocumentReminder(models.Model):
-    reminder = models.OneToOneField(Reminder, on_delete=models.CASCADE)
-    required_documents = models.TextField()
-
-    def save(self, *args, **kwargs):
-        # Si no se ha definido el mensaje, lo generamos automáticamente
-        if not self.required_documents:
-            user_name = self.reminder.user_email.split('@')[0].replace(".", " ").capitalize()  # Extrae el nombre de usuario
-            self.required_documents = f"Hola {user_name}, recuerda traer los siguientes documentos: cédula, carnet, y cualquier otro documento requerido."
-        super(DocumentReminder, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return f"Documents for {self.reminder.user_email}: {self.required_documents}"
+    class Meta:
+        ordering = ['appointment_date']
+        verbose_name = 'Recordatorio'
+        verbose_name_plural = 'Recordatorios'

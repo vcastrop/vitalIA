@@ -1,0 +1,33 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+<div class="content">
+    <div class="container">
+        <div class="page-header">
+            <h1>Sistema de Recordatorios de Documentos</h1>
+        </div>
+        
+        <div class="welcome-card">
+            <h2>Bienvenido al Sistema de Recordatorios</h2>
+            <p>Aquí podrás gestionar tus recordatorios de documentos médicos de manera fácil y eficiente.</p>
+            
+            <div class="dashboard-options">
+                <div class="option-card">
+                    <h3>Ver Recordatorios</h3>
+                    <p>Consulta y administra tus recordatorios activos.</p>
+                    <a href="{% url 'reminder_app:reminder_list' %}" class="action-button primary-button">Ver Lista</a>
+                </div>
+                <div class="option-card">
+                    <h3>Crear Recordatorio</h3>
+                    <p>Agrega un nuevo recordatorio de documentos médicos.</p>
+                    <a href="{% url 'reminder_app:create_reminder' %}" class="action-button primary-button">Crear Nuevo</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <a href="{% url 'menu' %}" class="action-button secondary-button">Volver al Menú Principal</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

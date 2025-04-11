@@ -1,0 +1,67 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+<div class="content">
+    <div class="container">
+        <div class="page-header">
+            <h1>Mis Recordatorios de Documentos</h1>
+        </div>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="message-box">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="button-container">
+            <a href="{% url 'reminder_app:create_reminder' %}" class="action-button primary-button">Crear Nuevo Recordatorio</a>
+        </div>
+
+        {% if reminders %}
+        <div class="reminders-list">
+            {% for reminder in reminders %}
+            <div class="reminder-card">
+                <div class="reminder-content">
+                    <div class="reminder-details">
+                        <h3 class="reminder-title">{{ reminder.title }}</h3>
+                        <p class="reminder-date">Fecha: {{ reminder.appointment_date|date:"d/m/Y H:i" }}</p>
+                        <div class="reminder-docs">
+                            <p class="docs-title">Documentos necesarios:</p>
+                            <p class="docs-content">{{ reminder.documents|linebreaks }}</p>
+                        </div>
+                        {% if reminder.description %}
+                        <div class="reminder-description">
+                            <p><strong>Descripción:</strong></p>
+                            <p>{{ reminder.description|linebreaks }}</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="reminder-actions">
+                        <form method="post" action="{% url 'reminder_app:delete_reminder' reminder.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="action-button delete-button" 
+                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este recordatorio?')">
+                                Eliminar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="reminder-card empty-message">
+            <p>No tienes recordatorios activos.</p>
+        </div>
+        {% endif %}
+
+        <div class="button-container">
+            <a href="{% url 'reminder_app:reminder_dashboard' %}" class="action-button secondary-button">Volver al Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 
