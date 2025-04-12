@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class Reminder(models.Model):
     APPOINTMENT_TYPES = [
@@ -16,7 +17,7 @@ class Reminder(models.Model):
     appointment_date = models.DateTimeField()
     documents = models.TextField(help_text="Lista de documentos necesarios")
     description = models.TextField(blank=True, help_text="Descripción adicional del recordatorio")
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
     notification_sent = models.BooleanField(default=False)
 

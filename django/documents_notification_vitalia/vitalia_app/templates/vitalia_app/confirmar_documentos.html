@@ -4,38 +4,83 @@
 {% block title %}Confirmar Documentos - VitalIA{% endblock %}
 
 {% block content %}
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmar Documentos - VitalIA</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="{% static 'navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'vitalia_app/css/styles.css' %}">
-</head>
-<body>
-    <div class="container mt-4">
-        <h2>Documentos por Confirmar</h2>
-        <div class="document-list">
-            {% for documento in documents %}
-            <div class="document-item">
-                <div>
-                    <strong>Tipo:</strong> {{ documento.tipo }}<br>
-                    <strong>Paciente:</strong> {{ documento.paciente.nombre }}<br>
-                    <strong>Estado:</strong> {{ documento.estado }}
-                </div>
-                {% if documento.estado == "Pendiente" %}
-                    <a href="{% url 'vitalia_app:confirmar_documento' documento.id %}" class="btn-custom">Confirmar</a>
-                {% else %}
-                    <span>Confirmado</span>
-                {% endif %}
+<div class="content">
+    <div class="container">
+        <div class="page-header">
+            <h1>Confirmar Documentos</h1>
+            <p>Aquí puedes confirmar los documentos que has preparado para tus citas médicas.</p>
+        </div>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="message-box {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
             </div>
-            {% empty %}
-                <p>No hay documentos por confirmar.</p>
             {% endfor %}
         </div>
-        <a href="{% url 'vitalia_app:inicio' %}" class="btn-back">Volver a Inicio</a>
+        {% endif %}
+
+        {% if recordatorios %}
+        <div class="reminders-section">
+            <h2>Tus Recordatorios Activos</h2>
+            <div class="reminders-list">
+                {% for recordatorio in recordatorios %}
+                <div class="reminder-card">
+                    <div class="reminder-content">
+                        <div class="reminder-details">
+                            <h3 class="reminder-title">{{ recordatorio.title }}</h3>
+                            <p class="reminder-date">Fecha: {{ recordatorio.appointment_date|date:"d/m/Y H:i" }}</p>
+                            <p class="reminder-type">Tipo: {{ recordatorio.get_appointment_type_display }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="documents-section">
+            <h2>Tus Documentos</h2>
+            
+            {% if documentos %}
+            <div class="documents-list">
+                {% for documento in documentos %}
+                <div class="document-card {% if documento.estado == 'confirmado' %}confirmed{% else %}pending{% endif %}">
+                    <div class="document-content">
+                        <div class="document-details">
+                            <h3 class="document-name">{{ documento.nombre }}</h3>
+                            <p class="document-type">Tipo: {{ documento.get_tipo_display }}</p>
+                            <p class="document-date">Creado: {{ documento.fecha_creacion|date:"d/m/Y" }}</p>
+                            {% if documento.estado == 'confirmado' %}
+                            <p class="document-confirmation">Confirmado: {{ documento.fecha_confirmacion|date:"d/m/Y" }}</p>
+                            {% endif %}
+                            {% if documento.reminder %}
+                            <p class="document-reminder">Recordatorio: {{ documento.reminder.title }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="document-actions">
+                            {% if documento.estado == 'pendiente' %}
+                            <form method="post" action="{% url 'vitalia_app:confirmar_documento' documento.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="action-button primary-button">Confirmar</button>
+                            </form>
+                            {% else %}
+                            <span class="status-badge confirmed">Confirmado</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-message">
+                <p>No tienes documentos pendientes de confirmar.</p>
+                <p>Los documentos aparecerán aquí cuando crees recordatorios en la sección de Recordatorios.</p>
+                <a href="{% url 'reminder_app:reminder_dashboard' %}" class="action-button primary-button">Ir a Recordatorios</a>
+            </div>
+            {% endif %}
+        </div>
     </div>
-</body>
-</html>
+</div>
 {% endblock %}
