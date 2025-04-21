@@ -6,7 +6,7 @@ app_name = 'vitalia_app'
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),  
-    path('ver-pacientes/', views.ver_pacientes, name='ver_pacientes'),
-    path('confirmar-documentos/', views.confirmar_documentos, name='confirmar_documentos'),
+    path('documentos-pendientes/', views.confirmar_documentos, name='documentos_pendientes'),
+    path('documentos-confirmados/', views.ver_documentos_confirmados, name='documentos_confirmados'),
     path('confirmar-documento/<int:documento_id>/', views.confirmar_documento, name='confirmar_documento'),
 ]

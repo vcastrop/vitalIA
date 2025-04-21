@@ -4,27 +4,34 @@
 {% block title %}Inicio - VitalIA{% endblock %}
 
 {% block content %}
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio - VitalIA</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="{% static 'navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'vitalia_app/css/styles.css' %}">
-</head>
-<body>
-    <div class="content-container">
-        <h1>¡Tu Salud, Nuestra Prioridad!</h1>
-        <p class="subtitle">Gestiona tus documentos médicos de forma rápida y segura</p>
+<div class="content">
+    <div class="container">
+        <div class="page-header">
+            <h1>¡Tu Salud, Nuestra Prioridad!</h1>
+            <p class="subtitle">Gestiona tus documentos médicos de forma rápida y segura</p>
+        </div>
         
-        <div style="display: flex; flex-direction: column; gap: 15px;">
-            <a href="{% url 'vitalia_app:ver_pacientes' %}" class="btn-custom">Mi Perfil</a>
-            <a href="{% url 'vitalia_app:confirmar_documentos' %}" class="btn-custom">Confirmar Documentos</a>
+        <div class="welcome-card">
+            <h2>Bienvenido al Sistema de Gestión de Documentos Médicos</h2>
+            <p>Aquí podrás gestionar tus documentos médicos de manera fácil y eficiente.</p>
+            
+            <div class="dashboard-options">
+                <div class="option-card">
+                    <h3>Documentos Pendientes</h3>
+                    <p>Confirma los documentos que has preparado para tus citas médicas.</p>
+                    <a href="{% url 'vitalia_app:documentos_pendientes' %}" class="action-button primary-button">Ver Pendientes</a>
+                </div>
+                <div class="option-card">
+                    <h3>Documentos Confirmados</h3>
+                    <p>Consulta los documentos que ya has confirmado para tus citas médicas.</p>
+                    <a href="{% url 'vitalia_app:documentos_confirmados' %}" class="action-button primary-button">Ver Confirmados</a>
+                </div>
+            </div>
         </div>
 
-        <a href="{% url 'menu' %}" class="menu-button">Volver al Menú Principal</a>
+        <div class="button-container">
+            <a href="{% url 'menu' %}" class="action-button secondary-button">Volver al Menú Principal</a>
+        </div>
     </div>
-</body>
-</html>
+</div>
 {% endblock %}

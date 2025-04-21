@@ -1,0 +1,62 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block title %}Documentos Confirmados - VitalIA{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container">
+        <div class="page-header">
+            <h1>Documentos Confirmados</h1>
+            <p>Aquí puedes ver los documentos que ya has confirmado para tus citas médicas.</p>
+        </div>
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="message-box {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="documents-section">
+            <h2>Documentos Confirmados</h2>
+            
+            {% if documentos %}
+            <div class="documents-list">
+                {% for documento in documentos %}
+                <div class="document-card confirmed">
+                    <div class="document-content">
+                        <div class="document-details">
+                            <h3 class="document-name">{{ documento.nombre }}</h3>
+                            <p class="document-type">Tipo: {{ documento.tipo }}</p>
+                            <p class="document-date">Creado: {{ documento.fecha_creacion|date:"d/m/Y" }}</p>
+                            <p class="document-confirmation">Confirmado: {{ documento.fecha_confirmacion|date:"d/m/Y" }}</p>
+                            {% if documento.reminder %}
+                            <p class="document-reminder">Recordatorio: {{ documento.reminder.title }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="document-actions">
+                            <span class="status-badge confirmed">Confirmado</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-message">
+                <p>No tienes documentos confirmados.</p>
+                <p>Los documentos confirmados aparecerán aquí después de que los confirmes en la sección de Documentos Pendientes.</p>
+                <a href="{% url 'vitalia_app:documentos_pendientes' %}" class="action-button primary-button">Ir a Documentos Pendientes</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="button-container">
+            <a href="{% url 'vitalia_app:documentos_pendientes' %}" class="action-button secondary-button">Ver Documentos Pendientes</a>
+            <a href="{% url 'vitalia_app:inicio' %}" class="action-button secondary-button">Volver a Inicio</a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,13 +1,12 @@
-<!DOCTYPE html>
 {% extends 'navbar.html' %}
 {% load static %}
-{% block title %}Confirmar Documentos - VitalIA{% endblock %}
+{% block title %}Documentos Pendientes - VitalIA{% endblock %}
 
 {% block content %}
 <div class="content">
     <div class="container">
         <div class="page-header">
-            <h1>Confirmar Documentos</h1>
+            <h1>Documentos Pendientes de Confirmación</h1>
             <p>Aquí puedes confirmar los documentos que has preparado para tus citas médicas.</p>
         </div>
 
@@ -41,33 +40,26 @@
         {% endif %}
 
         <div class="documents-section">
-            <h2>Tus Documentos</h2>
+            <h2>Documentos Pendientes de Confirmación</h2>
             
             {% if documentos %}
             <div class="documents-list">
                 {% for documento in documentos %}
-                <div class="document-card {% if documento.estado == 'confirmado' %}confirmed{% else %}pending{% endif %}">
+                <div class="document-card pending">
                     <div class="document-content">
                         <div class="document-details">
                             <h3 class="document-name">{{ documento.nombre }}</h3>
-                            <p class="document-type">Tipo: {{ documento.get_tipo_display }}</p>
+                            <p class="document-type">Tipo: {{ documento.tipo }}</p>
                             <p class="document-date">Creado: {{ documento.fecha_creacion|date:"d/m/Y" }}</p>
-                            {% if documento.estado == 'confirmado' %}
-                            <p class="document-confirmation">Confirmado: {{ documento.fecha_confirmacion|date:"d/m/Y" }}</p>
-                            {% endif %}
                             {% if documento.reminder %}
                             <p class="document-reminder">Recordatorio: {{ documento.reminder.title }}</p>
                             {% endif %}
                         </div>
                         <div class="document-actions">
-                            {% if documento.estado == 'pendiente' %}
                             <form method="post" action="{% url 'vitalia_app:confirmar_documento' documento.id %}">
                                 {% csrf_token %}
                                 <button type="submit" class="action-button primary-button">Confirmar</button>
                             </form>
-                            {% else %}
-                            <span class="status-badge confirmed">Confirmado</span>
-                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -81,6 +73,11 @@
             </div>
             {% endif %}
         </div>
+
+        <div class="button-container">
+            <a href="{% url 'vitalia_app:documentos_confirmados' %}" class="action-button secondary-button">Ver Documentos Confirmados</a>
+            <a href="{% url 'vitalia_app:inicio' %}" class="action-button secondary-button">Volver a Inicio</a>
+        </div>
     </div>
 </div>
-{% endblock %}
+{% endblock %} 
