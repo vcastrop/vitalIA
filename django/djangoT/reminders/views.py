@@ -1,6 +1,6 @@
 from .forms import MedicationReminderForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import MedicationReminder
 
 
@@ -22,3 +22,9 @@ def add_medication_reminder(request):
     # 👇 Solo recordatorios del usuario actual
     reminders = MedicationReminder.objects.filter(usuario=request.user)
     return render(request, 'reminders/add_medication_reminder.html', {'form': form, 'reminders': reminders})
+
+@login_required
+def delete_medication_reminder(request, pk):
+    reminder = get_object_or_404(MedicationReminder, pk=pk)
+    reminder.delete()
+    return redirect('add_reminder')
