@@ -1,11 +1,18 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Cita, Doctor, Especialidad
 from datetime import datetime
-
+from django.contrib.auth.decorators import login_required
 # Página principal
+
+
+@login_required
+def ver_mis_citas(request):
+    citas = Cita.objects.filter(usuario=request.user).order_by('fecha', 'hora')
+    return render(request, 'mi_cita.html', {'citas': citas})
 
 def appointments_home(request):
     especialidades = Especialidad.objects.all()
@@ -79,29 +86,29 @@ def agendar_cita(request, cita_id):
 
     return JsonResponse({"error": "Método no permitido."}, status=405)
 
+@login_required
 @csrf_exempt
 def reservar_cita(request):
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-            cita_id = data.get("cita_id")
+    try:
+        data = json.loads(request.body)
+        cita_id = data.get("cita_id")
 
-            if not cita_id:
-                return JsonResponse({"mensaje": "ID de cita no proporcionado."}, status=400)
+        if not cita_id:
+            return JsonResponse({"mensaje": "ID de cita no proporcionado."}, status=400)
 
-            cita = Cita.objects.get(id=cita_id)
+        cita = Cita.objects.get(id=cita_id)
 
-            if not cita.disponible:
-                return JsonResponse({"mensaje": "La cita ya está ocupada."}, status=400)
+        if not cita.disponible:
+            return JsonResponse({"mensaje": "La cita ya está ocupada."}, status=400)
 
-            cita.disponible = False  # Marcar la cita como ocupada
-            cita.save()
+        # 👇 Aquí es donde se asigna el usuario a la cita
+        cita.disponible = False
+        cita.usuario = request.user
+        cita.save()
 
-            return JsonResponse({"mensaje": "Cita agendada correctamente."}, status=200)
+        return JsonResponse({"mensaje": "Cita agendada correctamente."}, status=200)
 
-        except Cita.DoesNotExist:
-            return JsonResponse({"mensaje": "La cita no existe."}, status=404)
-        except Exception as e:
-            return JsonResponse({"mensaje": f"Error: {str(e)}"}, status=500)
-
-    return JsonResponse({"mensaje": "Método no permitido."}, status=405)
+    except Cita.DoesNotExist:
+        return JsonResponse({"mensaje": "La cita no existe."}, status=404)
+    except Exception as e:
+        return JsonResponse({"mensaje": f"Error: {str(e)}"}, status=500)

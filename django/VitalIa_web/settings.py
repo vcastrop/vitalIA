@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "medical_appointments_web.medicalappointments",
     "djangoT.reminders",
     "med_finder",
+    "users",
     'med_finder.medical_f',
     'documents_notification_vitalia.vitalia_app',
     'documents_notification_vitalia.reminder_app',
@@ -78,6 +79,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'medical_appointments_web.appointments', 'templates'),
+            os.path.join(BASE_DIR, 'users', 'templates'),
             os.path.join(BASE_DIR, 'test_results_web', 'results', 'templates'),
             os.path.join(BASE_DIR, 'djangoT', 'medical_app1', 'reminders', 'templates'),
             os.path.join(BASE_DIR, 'med_finder', 'medical_f', 'templates'),

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% extends 'navbar.html' %}
+
 {% load static %}
 {% block title %}Buscar Citas Médicas{% endblock %}
 
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{% static 'navbar.css' %}">
 </head>
 <body>
+{% include 'navbar.html' %}
 
     <main>
         <!-- Sección de Búsqueda -->
