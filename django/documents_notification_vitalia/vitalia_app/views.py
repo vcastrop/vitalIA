@@ -7,9 +7,13 @@ import json
 def inicio(request):
     return render(request, 'vitalia_app/home.html')  # Vista asociada a la ruta ''
 
-def ver_pacientes(request):
-    pacientes = Paciente.objects.all()
-    return render(request, 'vitalia_app/paciente_list.html', {'pacientes': pacientes})  # Vista asociada a la ruta 'view_patients/'
+def ver_documentos_confirmados(request):
+    # Obtener todos los documentos confirmados
+    documentos_confirmados = Documento.objects.filter(estado='confirmado').order_by('-fecha_confirmacion')
+    
+    return render(request, 'vitalia_app/documentos_confirmados.html', {
+        'documentos': documentos_confirmados
+    })
 
 def confirmar_documentos(request):
     # Obtener el modelo Reminder dinámicamente
@@ -41,13 +45,13 @@ def confirmar_documentos(request):
                     estado='pendiente'
                 )
     
-    # Obtener todos los documentos actualizados y ordenarlos por fecha de creación
-    documentos = Documento.objects.all().order_by('-fecha_creacion')
+    # Obtener todos los documentos pendientes actualizados y ordenarlos por fecha de creación
+    documentos = Documento.objects.filter(estado='pendiente').order_by('-fecha_creacion')
     
     # Filtrar documentos que no tienen nombre o tipo válido
     documentos = documentos.exclude(nombre='Documento sin nombre').exclude(tipo='general')
     
-    return render(request, 'vitalia_app/confirmar_documentos.html', {
+    return render(request, 'vitalia_app/documentos_pendientes.html', {
         'documentos': documentos,
         'recordatorios': recordatorios
     })
@@ -58,4 +62,4 @@ def confirmar_documento(request, documento_id):
     # Confirmar el documento
     documento.confirmar()
     
-    return redirect('vitalia_app:confirmar_documentos')
+    return redirect('vitalia_app:documentos_pendientes')
