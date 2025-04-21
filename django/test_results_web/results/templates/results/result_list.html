@@ -1,50 +1,76 @@
 <!DOCTYPE html>
-
-{% extends 'navbar.html' %}
 {% load static %}
-{% block title %}Buscar Citas Médicas{% endblock %}
-
-{% block content %}
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados Médicos - VitalIA</title>
+    <title>Resultados Médicos</title>
     <link rel="stylesheet" href="{% static 'navbar.css' %}">
+</head>
+<body>
+
+    <!-- Incluye la navbar -->
+    {% include 'navbar.html' %}
+
+    <!-- Contenido -->
+    <main class="content">
+        <h1>Resultados Médicos</h1>
+        <ul>
+            <li>
+                <strong>Hemograma Completo</strong> - Análisis de Sangre<br>
+                <small>Subido el 1 de marzo de 2025</small><br>
+                <a href="archivos/hemograma.pdf" download>📥 Descargar</a>
+            </li>
+            <li>
+                <strong>Radiografía de Tórax</strong> - Imagenología<br>
+                <small>Subido el 25 de febrero de 2025</small><br>
+                <a href="archivos/radiografia_torax.pdf" download>📥 Descargar</a>
+            </li>
+            <li>
+                <strong>Electrocardiograma</strong> - Cardiología<br>
+                <small>Subido el 20 de febrero de 2025</small><br>
+                <a href="archivos/electrocardiograma.pdf" download>📥 Descargar</a>
+            </li>
+        </ul>
+
+        <a href="/" class="btn-home">🏠 Volver a Inicio</a>
+    </main>
 
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 40px;
-            padding: 20px;
+            margin: 0;
             background-color: #f4f4f4;
+        }
+
+        main.content {
+            padding: 120px 20px 40px;
             text-align: center;
-            padding-top: 120px;
         }
-        h1 {
-            color: #333;
-        }
+
         ul {
             list-style: none;
             padding: 0;
         }
+
         li {
             background: white;
             padding: 15px;
             margin: 10px auto;
             width: 50%;
             border-radius: 8px;
-
         }
+
         a {
             text-decoration: none;
             color: #007BFF;
             font-weight: bold;
         }
+
         a:hover {
             text-decoration: underline;
         }
+
         .btn-home {
             display: inline-block;
             margin-top: 20px;
@@ -54,41 +80,10 @@
             text-decoration: none;
             border-radius: 5px;
         }
+
         .btn-home:hover {
             background-color: #0056b3;
         }
-
-
     </style>
-
-</head>
-<body>
-    <h1>Resultados Médicos</h1>
-    <ul>
-        <li>
-            <strong>Hemograma Completo</strong> - Análisis de Sangre
-            <br>
-            <small>Subido el 1 de marzo de 2025</small>
-            <br>
-            <a href="archivos/hemograma.pdf" download>📥 Descargar</a>
-        </li>
-        <li>
-            <strong>Radiografía de Tórax</strong> - Imagenología
-            <br>
-            <small>Subido el 25 de febrero de 2025</small>
-            <br>
-            <a href="archivos/radiografia_torax.pdf" download>📥 Descargar</a>
-        </li>
-        <li>
-            <strong>Electrocardiograma</strong> - Cardiología
-            <br>
-            <small>Subido el 20 de febrero de 2025</small>
-            <br>
-            <a href="archivos/electrocardiograma.pdf" download>📥 Descargar</a>
-        </li>
-    </ul>
-
-    <a href="/" class="btn-home">🏠 Volver a Inicio</a>
 </body>
 </html>
-{% endblock %}

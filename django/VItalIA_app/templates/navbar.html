@@ -16,19 +16,27 @@
                 <img src="{% static 'src/imagenes/logo.png' %}" alt="VitalIA">
             </div>
             <ul class="nav-links">
-                <li><a href="/menu/">Home</a></li>
-                <li><a href="#">About VitalIA</a></li>
-                <li><a href="/medication-finder/">Medication Finder</a></li>
-                <li><a href="/appointments/">Appointments Management</a></li>
-                <li><a href="/medication-management/">Medications Management</a></li>
-                <li><a href="/testresults/">Test Results</a></li>
-                <li><a href="/document-notification/">Document Notification</a></li>
+                <li><a href="/menu/">Inicio</a></li>
+                <li><a href="#">Sobre VitalIA</a></li>
+                <li><a href="/medication-finder/">Encontrar Medicamentos</a></li>
+                <li><a href="/appointments/">Agendar Cita Médica</a></li>
+                <li><a href="/appointments/mis-citas/">Ver Mis Citas Médicas</a></li>
+                <li><a href="/medication-management/">Manejo De Medicamentos</a></li>
+                <li><a href="/testresults/">Resultados Médicos</a></li>
+                <li><a href="/document-notification/">Notificación De Documentos</a></li>
             </ul>
             <div class="icons">
                 <a href="#"><i class="fa-solid fa-bell"></i></a>
-                <a href="#"><i class="fa-solid fa-user"></i></a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'perfil_usuario' %}" class="username-link">
+                        👤 {{ user.username }}
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="username-link">Iniciar sesión</a>
+                {% endif %}
             </div>
         </nav>
+
 
 
     <!-- Contenido dinámico -->

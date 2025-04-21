@@ -4,7 +4,8 @@ from django.shortcuts import redirect
 from test_results_web.results import views
 
 urlpatterns = [
-    path('', lambda request: redirect('/menu/')),
+    path('', lambda request: redirect('/auth/login/')),
+    path('auth/', include('users.urls')),
     path('admin/', admin.site.urls),
     path('menu/', views.menu, name="menu"),  # Llamar directamente la vista
     path('appointments/', include('medical_appointments_web.appointments.urls')),  # Incluir las rutas de la app appointments
