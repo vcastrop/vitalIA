@@ -1,95 +1,137 @@
 <!DOCTYPE html>
 {% extends 'navbar.html' %}
 {% load static %}
-{% block title %}Buscar Citas Médicas{% endblock %}
+{% block title %}Buscar Medicamentos{% endblock %}
 
 {% block content %}
-<meta charset="UTF-8">
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Medicamentos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'navbar.css' %}">
-
     <style>
         body {
-            background: linear-gradient(135deg, #1E3A8A, #3B82F6);
-            color: white;
+            background: #f8f9fa;
+            color: #000000; /* Cambia el color del texto a negro */
             font-family: Arial, sans-serif;
-            padding-top: 120px;
+            padding-top: 50px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #000000; /* Título en negro */
+        }
+        .header p {
+            font-size: 1.2rem;
+            color: #000000; /* Subtítulo en negro */
         }
         .search-container {
-            margin-top: 10vh;
+            margin-top: 20px;
             text-align: center;
         }
         .search-box {
-            max-width: 500px;
+            max-width: 600px;
             margin: auto;
         }
-        .results-table {
-            background: white;
-            color: black;
+        .results-container {
+            margin-top: 40px;
+        }
+        .card {
+            border: none;
             border-radius: 10px;
-            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .card-title {
+            color: #000000; /* Títulos de las tarjetas en negro */
+        }
+        .btn-custom {
+            background-color: #3B82F6; /* Azul claro */
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: 0.3s;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #2563EB; /* Azul más oscuro al pasar el mouse */
+            color: white;
+        }
+        .text-muted {
+            color: #000000 !important; /* Cambia el texto "No se encontraron resultados" a negro */
+        }
+        .alert-warning {
+            color: #000000; /* Cambia el texto de las alertas a negro */
         }
     </style>
-    <link rel="stylesheet" href="{% static 'navbar.css' %}">
 </head>
 <body>
-
-    <div class="container search-container">
-        <h1 class="fw-bold">Busca tu Medicamento</h1>
-        <p class="lead">Encuentra disponibilidad y precios en diferentes farmacias</p>
-
-        <div class="search-box">
-            <form method="GET" action="{% url 'buscar_medicamentos' %}">
-                <input type="text" name="query" class="form-control" placeholder="Ingresa el nombre del medicamento..." value="{{ query }}">
-                <button type="submit" class="btn btn-light mt-2">Buscar</button>
-            </form>
+    <div class="container">
+        <!-- Encabezado -->
+        <div class="header">
+            <h1>Busca tu Medicamento</h1>
+            <p>Encuentra disponibilidad y precios en diferentes farmacias</p>
         </div>
-    </div>
 
-    <div class="container mt-5">
-        {% if resultados %}
-            <div id="resultados" class="results-table">
+        <!-- Formulario de búsqueda -->
+        <div class="search-container">
+            <div class="search-box">
+                <form method="GET" action="{% url 'buscar_medicamentos' %}">
+                    <div class="input-group">
+                        <input type="text" name="query" class="form-control" placeholder="Ingresa el nombre del medicamento..." value="{{ query }}">
+                        <button type="submit" class="btn btn-custom">Buscar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div class="results-container">
+            {% if resultados %}
                 <h2 class="text-center">Resultados de la búsqueda</h2>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Medicamento</th>
-                            <th>Farmacia</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for med in resultados %}
-                            {% for farmacia in med.farmacias %}
-                                <tr>
-                                    <td>{{ med.medicamento }}</td>
-                                    <td>{{ farmacia.farmacia }}</td>
-                                    <td>{{ farmacia.precio }}</td>
-                                    <td>{{ farmacia.stock }}</td>
-                                </tr>
+                <div class="row mt-4">
+                    {% for med in resultados %}
+                        <div class="col-md-4">
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ med.medicamento }}</h5>
+                                    <p class="card-text">{{ med.descripcion }}</p>
+                                    <ul class="list-group list-group-flush">
+                                        {% for farmacia in med.farmacias %}
+                                            <li class="list-group-item">
+                                                <strong>Farmacia:</strong> {{ farmacia.farmacia }}<br>
+                                                <strong>Precio:</strong> ${{ farmacia.precio }}<br>
+                                                <strong>Stock:</strong> {{ farmacia.stock }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% elif query %}
+                <p class="text-center text-muted">No se encontraron resultados para "{{ query }}".</p>
+                {% if sugerencias %}
+                    <div class="alert alert-warning text-center">
+                        <p>¿Quisiste decir?</p>
+                        <ul>
+                            {% for sugerencia in sugerencias %}
+                                <li>
+                                    <a href="{% url 'buscar_medicamentos' %}?query={{ sugerencia }}">{{ sugerencia }}</a>
+                                </li>
                             {% endfor %}
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Botón para volver al inicio -->
-            <div class="text-center mt-4">
-                <a href="{% url 'home' %}" class="btn btn-primary">Volver al inicio</a>
-            </div>
-
-        {% else %}
-            {% if query %}
-                <p class="text-center">No se encontraron resultados para "{{ query }}".</p>
+                        </ul>
+                    </div>
+                {% endif %}
             {% endif %}
-        {% endif %}
+        </div>
     </div>
 </body>
 </html>
