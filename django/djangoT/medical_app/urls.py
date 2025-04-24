@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from reminders import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('reminders.urls')),
+    path('delete/<int:pk>/', views.delete_medication_reminder, name='delete_reminder'),
 ]

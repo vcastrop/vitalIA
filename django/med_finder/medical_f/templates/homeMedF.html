@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% extends 'navbar.html' %}
 {% load static %}
-{% block title %}Buscar Citas Médicas{% endblock %}
+{% block title %}Inicio - Buscar Medicamentos{% endblock %}
 
 {% block content %}
 <html lang="es">
@@ -14,8 +14,8 @@
 
     <style>
         body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
+            background: linear-gradient(135deg, #f8f9fa, #e3e6f0);
+            color: #000000; /* Texto negro por defecto */
             text-align: center;
             height: 100vh;
             display: flex;
@@ -28,12 +28,12 @@
             font-size: 3rem;
             font-weight: bold;
         }
-        .highlight {
-            color: #00ffcc;
+        .highlight-blue {
+            color: #3B82F6; /* Azul */
         }
         .btn-custom {
-            background-color: #00ffcc;
-            color: #1e3c72;
+            background-color: #3B82F6;
+            color: white;
             font-weight: bold;
             padding: 10px 20px;
             border-radius: 5px;
@@ -41,14 +41,20 @@
             transition: 0.3s;
         }
         .btn-custom:hover {
-            background-color: #00cc99;
+            background-color: #2563EB;
             color: white;
+        }
+        .lead {
+            font-size: 1.2rem;
+            color: #6c757d;
         }
     </style>
 </head>
 <body>
     <div>
-        <h1 class="hero-title">Toma <span class="highlight">Control</span> De Tu <span class="highlight">Salud</span> con <span class="highlight">VitalIA</span></h1>
+        <h1 class="hero-title">
+            Toma <span class="highlight-blue">Control</span> De Tu <span class="highlight-blue">Salud</span> con <span class="highlight-blue">VitalIA</span>
+        </h1>
         <p class="lead">Tu asistente inteligente para el bienestar.</p>
         <a href="{% url 'buscar_medicamentos' %}" class="btn btn-custom mt-3">Buscar Medicamentos</a>
     </div>

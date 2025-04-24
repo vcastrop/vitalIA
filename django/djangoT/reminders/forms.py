@@ -18,3 +18,11 @@ class MedicationReminderForm(forms.ModelForm):
     class Meta:
         model = MedicationReminder
         fields = ['medication_name', 'days_of_week', 'start_date', 'end_date']
+        widgets = {
+            'start_date': forms.TextInput(attrs={
+                'class': 'form-control datepicker', 'placeholder': 'YYYY-MM-DD'
+            }),
+            'end_date': forms.TextInput(attrs={
+                'class': 'form-control datepicker', 'placeholder': 'YYYY-MM-DD'
+            }),
+        }

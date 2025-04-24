@@ -107,6 +107,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "VItalIA_app/static_src/src/imagenes"),
     'VItalIA_app/static_src',
     os.path.join(BASE_DIR, 'documents_notification_vitalia', 'vitalia_app', 'static'),
+
 ]
 
 

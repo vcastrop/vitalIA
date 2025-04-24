@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{% static 'navbar.css' %}">
     <style>
         body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: linear-gradient(135deg, #c2c6cc, #eaebec);
             color: white;
             text-align: center;
             height: 100vh;
@@ -24,18 +24,20 @@
         .hero-title {
             font-size: 3rem;
             font-weight: bold;
+            color: black;
         }
         .highlight {
-            color: #00ffcc;
+            color: #437dfc;
         }
         .btn-custom {
-            background-color: #00ffcc;
-            color: #1e3c72;
+            background-color: #91b4ff;
+            color: #ffffff;
             font-weight: bold;
             padding: 10px 20px;
             border-radius: 5px;
             text-decoration: none;
             transition: 0.3s;
+            margin: 10px;
         }
         .btn-custom:hover {
             background-color: #00cc99;
@@ -44,7 +46,7 @@
     </style>
 </head>
 <body>
-    <h1 class="hero-title">Bienvenido a <span class="highlight">MedReminder</span></h1>
+    <h1 class="hero-title">Bienvenido a Med<span class="highlight">Reminder</span></h1>
     <a href="{% url 'add_medication_reminder' %}" class="btn-custom">Crear Recordatorio</a>
 </body>
 </html>
