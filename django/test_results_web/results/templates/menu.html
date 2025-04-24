@@ -4,24 +4,27 @@
 {% block title %}Buscar Citas Médicas{% endblock %}
 
 {% block content %}
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - VitalIA</title>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'VitalIA_app/static_src/src/menu.css' %}">
-     <link rel="stylesheet" href="{% static 'navbar.css' %}">
-
-
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100">
+    <main class="content">
+        <section class="container">
+            <div class="page-header">
+                <h1 class="text-4xl font-bold text-center text-blue-600">Welcome to VitalIA</h1>
+            </div>
 
-    <main>
-        <section class="menu">
-            <h1>Welcome to VitalIA</h1>
-            <p>Select an option from the navigation bar to continue.</p>
+            <div class="welcome-card">
+                <div class="logo-container">
+                    <img src="{% static 'imagenes/logo.png' %}" alt="VitalIA Logo" class="logo">
+                </div>
+                <h2 class="text-3xl font-semibold text-center text-gray-800">Manage Your Health</h2>
+                <p class="text-lg text-center text-gray-600">Get started by registering your account or checking your appointments.</p>
+            </div>
         </section>
     </main>
 </body>
