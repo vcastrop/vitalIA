@@ -21,5 +21,4 @@ from reminders import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('reminders.urls')),
-    path('delete/<int:pk>/', views.delete_medication_reminder, name='delete_reminder'),
 ]
