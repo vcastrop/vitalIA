@@ -6,84 +6,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados Médicos</title>
     <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}"> <!-- reutilizamos estilos globales -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            padding-top: 120px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            color: #2c3e50;
+        }
+
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .result-card {
+            background-color: white;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+            text-align: left;
+        }
+
+        .result-card strong {
+            font-size: 20px;
+            color: #2c3e50;
+        }
+
+        .result-card small {
+            display: block;
+            margin-top: 8px;
+            color: #666;
+        }
+
+        .download-link {
+            margin-top: 10px;
+            display: inline-block;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .download-link:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-home {
+            display: block;
+            margin: 40px auto 0;
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            text-decoration: none;
+            width: fit-content;
+        }
+
+        .btn-home:hover {
+            background-color: #388e3c;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Incluye la navbar -->
     {% include 'navbar.html' %}
 
-    <!-- Contenido -->
     <main class="content">
-        <h1>Resultados Médicos</h1>
-        <ul>
-            <li>
-                <strong>Hemograma Completo</strong> - Análisis de Sangre<br>
-                <small>Subido el 1 de marzo de 2025</small><br>
-                <a href="archivos/hemograma.pdf" download>📥 Descargar</a>
-            </li>
-            <li>
-                <strong>Radiografía de Tórax</strong> - Imagenología<br>
-                <small>Subido el 25 de febrero de 2025</small><br>
-                <a href="archivos/radiografia_torax.pdf" download>📥 Descargar</a>
-            </li>
-            <li>
-                <strong>Electrocardiograma</strong> - Cardiología<br>
-                <small>Subido el 20 de febrero de 2025</small><br>
-                <a href="archivos/electrocardiograma.pdf" download>📥 Descargar</a>
-            </li>
-        </ul>
+        <div class="page-header">
+            <h1>Resultados Médicos</h1>
+        </div>
+
+        <section class="results-list">
+            <div class="result-card">
+                <strong>Hemograma Completo</strong> - Análisis de Sangre
+                <small>Subido el 1 de marzo de 2025</small>
+                <a href="archivos/hemograma.pdf" download class="download-link">📥 Descargar</a>
+            </div>
+
+            <div class="result-card">
+                <strong>Radiografía de Tórax</strong> - Imagenología
+                <small>Subido el 25 de febrero de 2025</small>
+                <a href="archivos/radiografia_torax.pdf" download class="download-link">📥 Descargar</a>
+            </div>
+
+            <div class="result-card">
+                <strong>Electrocardiograma</strong> - Cardiología
+                <small>Subido el 20 de febrero de 2025</small>
+                <a href="archivos/electrocardiograma.pdf" download class="download-link">📥 Descargar</a>
+            </div>
+        </section>
 
         <a href="/" class="btn-home">🏠 Volver a Inicio</a>
     </main>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-
-        main.content {
-            padding: 120px 20px 40px;
-            text-align: center;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            background: white;
-            padding: 15px;
-            margin: 10px auto;
-            width: 50%;
-            border-radius: 8px;
-        }
-
-        a {
-            text-decoration: none;
-            color: #007BFF;
-            font-weight: bold;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .btn-home {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .btn-home:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </body>
 </html>
