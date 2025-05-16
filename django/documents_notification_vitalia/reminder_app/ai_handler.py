@@ -1,15 +1,24 @@
-from transformers import pipeline
+try:
+    from transformers import pipeline
+    import torch
+
+    _torch_available = True
+except ImportError:
+    _torch_available = False
+    print("⚠️ PyTorch no está disponible. La IA de recordatorios estará deshabilitada.")
+
 
 class ReminderAI:
     def __init__(self):
-        self.generator = pipeline('text-generation', model='gpt2')
-    
+        if _torch_available:
+            self.generator = pipeline('text-generation', model='gpt2')
+        else:
+            self.generator = None
+
     def generate_reminder_description(self, title, appointment_type, documents):
         """Genera una descripción amigable para el recordatorio."""
-        # Descripción base personalizada
         base_description = f"¡Hola! Te recuerdo que tienes programado: {title}\n\n"
-        
-        # Descripciones más amigables por tipo de cita
+
         type_descriptions = {
             'consulta_general': "🏥 Es hora de tu consulta médica general. Tu salud es importante, así que no olvides llevar todos los documentos necesarios.",
             'consulta_especialista': "👨‍⚕️ Tienes una cita con el especialista. Recuerda que es importante llevar tu historial médico completo para una mejor atención.",
@@ -17,11 +26,9 @@ class ReminderAI:
             'vacunacion': "💉 Es momento de tu vacunación. ¡Mantener tus vacunas al día es cuidar tu salud!",
             'otros': "📅 Tienes una cita médica programada. No olvides llevar todos los documentos necesarios."
         }
-        
-        # Construir la descripción principal
+
         description = base_description + type_descriptions.get(appointment_type, type_descriptions['otros'])
-        
-        # Añadir sección de documentos de manera más amigable
+
         if documents:
             docs_list = [doc for doc in documents.split('\n') if doc]
             if docs_list:
@@ -29,12 +36,11 @@ class ReminderAI:
                 for doc in docs_list:
                     description += f"✅ {doc}\n"
                 description += "\n💡 Recuerda: Llevar todos los documentos necesarios te ayudará a tener una atención más eficiente."
-            
-        # Añadir mensaje de cierre motivador
+
         description += "\n\n¡Tu salud es nuestra prioridad! Si necesitas hacer algún cambio, no dudes en modificar este recordatorio."
-            
+
         return description
-    
+
     def suggest_documents(self, appointment_type):
         """Sugiere documentos basados en el tipo de cita."""
         document_suggestions = {
@@ -77,5 +83,5 @@ class ReminderAI:
                 "Lista de medicamentos actuales"
             ]
         }
-        
-        return document_suggestions.get(appointment_type, document_suggestions['otros']) 
+
+        return document_suggestions.get(appointment_type, document_suggestions['otros'])
