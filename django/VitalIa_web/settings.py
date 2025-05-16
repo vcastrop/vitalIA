@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-@$d_2m&-(m-6$gxlqos4va12&i9g+2cc5routop4u+=vs-4kbr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['52.202.112.197', '127.0.0.1:8000']
 
 
 # Application definition
@@ -165,4 +165,3 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
-ALLLOWED_HOSTS = [54.163.50.72]
